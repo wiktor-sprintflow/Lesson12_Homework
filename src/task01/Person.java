@@ -8,7 +8,7 @@ public class Person {
     private int age;
     private String pesel;
 
-    public Person(String firstName, String lastName, int age, String pesel) {
+    public Person(String firstName, String lastName, int age, String pesel) throws IncorrectAgeException, NameUndefinedException {
         validateInputData(firstName, lastName, age);
         this.firstName = firstName;
         this.lastName = lastName;
@@ -16,7 +16,7 @@ public class Person {
         this.pesel = pesel;
     }
 
-    private void validateInputData(String firstName, String lastName, int age) {
+    private void validateInputData(String firstName, String lastName, int age) throws IncorrectAgeException, NameUndefinedException {
         if (firstName.equals(null) || lastName.equals(null) || firstName.length() < 2 || lastName.length() < 2) {
             throw new NameUndefinedException();
         }
@@ -32,7 +32,7 @@ public class Person {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public void setFirstName(String firstName) throws NameUndefinedException {
         if (firstName == null || firstName.length() < 2) {
             throw new NameUndefinedException();
         }
@@ -43,7 +43,7 @@ public class Person {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public void setLastName(String lastName) throws NameUndefinedException {
         if (lastName == null || lastName.length() < 2) {
             throw new NameUndefinedException();
         }
@@ -54,7 +54,7 @@ public class Person {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(int age) throws IncorrectAgeException {
         if (age < 1) {
             throw new IncorrectAgeException();
         }
