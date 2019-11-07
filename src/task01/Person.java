@@ -1,34 +1,40 @@
 package task01;
 
-import java.util.Objects;
-
-public class Person {
+class Person {
     private String firstName;
     private String lastName;
     private int age;
     private String pesel;
 
-    public Person(String firstName, String lastName, int age, String pesel) throws IncorrectAgeException, NameUndefinedException {
-        validateInputData(firstName, lastName, age);
+    Person(String firstName, String lastName, int age, String pesel) {
+        validateFirstName(firstName);
+        validateLastName(lastName);
+        validateAge(age);
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
         this.pesel = pesel;
     }
 
-    private void validateInputData(String firstName, String lastName, int age) throws IncorrectAgeException, NameUndefinedException {
-        if (firstName.equals(null) || lastName.equals(null) || firstName.length() < 2 || lastName.length() < 2) {
-            throw new NameUndefinedException();
+    private void validateFirstName(String firstName) {
+        if (firstName.equals(null) || firstName.length() < 2) {
+            throw new IncorrectFirstNameException();
         }
+    }
+
+    private void validateLastName(String lastName) {
+        if (lastName.equals(null) || lastName.length() < 2) {
+            throw new IncorrectLastNameException();
+        }
+    }
+
+    private void validateAge(int age) {
         if (age < 1) {
             throw new IncorrectAgeException();
         }
     }
 
-    public Person() {
-    }
-
-    public String getFirstName() {
+    String getFirstName() {
         return firstName;
     }
 
@@ -39,7 +45,7 @@ public class Person {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
+    String getLastName() {
         return lastName;
     }
 
@@ -50,7 +56,7 @@ public class Person {
         this.lastName = lastName;
     }
 
-    public int getAge() {
+    int getAge() {
         return age;
     }
 
@@ -61,11 +67,11 @@ public class Person {
         this.age = age;
     }
 
-    public String getPesel() {
+    String getPesel() {
         return pesel;
     }
 
-    public void setPesel(String pesel) {
+    void setPesel(String pesel) {
         this.pesel = pesel;
     }
 

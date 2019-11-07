@@ -24,7 +24,7 @@ public class App {
             pesel = in.nextLine();
             Person person = new Person(firstName, lastName, age, pesel);
             System.out.println(person);
-        } catch (NameUndefinedException | IncorrectAgeException ex) {
+        } catch (IncorrectFirstNameException | IncorrectLastNameException | IncorrectAgeException ex) {
             System.err.println(ex.getMessage());
         } catch (InputMismatchException ex) {
             System.err.println("Podany wiek nie jest liczbą całkowitą");
