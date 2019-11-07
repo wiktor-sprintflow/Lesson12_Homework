@@ -6,7 +6,7 @@ class Person {
     private int age;
     private String pesel;
 
-    Person(String firstName, String lastName, int age, String pesel) {
+    Person(String firstName, String lastName, int age, String pesel) throws IncorrectFirstNameException, IncorrectLastNameException, IncorrectAgeException {
         validateFirstName(firstName);
         validateLastName(lastName);
         validateAge(age);
@@ -16,19 +16,19 @@ class Person {
         this.pesel = pesel;
     }
 
-    private void validateFirstName(String firstName) {
+    private void validateFirstName(String firstName) throws IncorrectFirstNameException {
         if (firstName.equals(null) || firstName.length() < 2) {
             throw new IncorrectFirstNameException();
         }
     }
 
-    private void validateLastName(String lastName) {
+    private void validateLastName(String lastName) throws IncorrectLastNameException {
         if (lastName.equals(null) || lastName.length() < 2) {
             throw new IncorrectLastNameException();
         }
     }
 
-    private void validateAge(int age) {
+    private void validateAge(int age) throws IncorrectAgeException {
         if (age < 1) {
             throw new IncorrectAgeException();
         }
@@ -38,7 +38,7 @@ class Person {
         return firstName;
     }
 
-    void setFirstName(String firstName) {
+    void setFirstName(String firstName) throws IncorrectFirstNameException {
         validateFirstName(firstName);
         this.firstName = firstName;
     }
@@ -47,7 +47,7 @@ class Person {
         return lastName;
     }
 
-    void setLastName(String lastName) {
+    void setLastName(String lastName) throws IncorrectLastNameException {
         validateLastName(lastName);
         this.lastName = lastName;
     }
@@ -56,7 +56,7 @@ class Person {
         return age;
     }
 
-    void setAge(int age) {
+    void setAge(int age) throws IncorrectAgeException {
         validateAge(age);
         this.age = age;
     }
