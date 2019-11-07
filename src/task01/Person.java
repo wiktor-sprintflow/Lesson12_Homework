@@ -38,10 +38,8 @@ class Person {
         return firstName;
     }
 
-    public void setFirstName(String firstName) throws NameUndefinedException {
-        if (firstName == null || firstName.length() < 2) {
-            throw new NameUndefinedException();
-        }
+    void setFirstName(String firstName) {
+        validateFirstName(firstName);
         this.firstName = firstName;
     }
 
@@ -49,10 +47,8 @@ class Person {
         return lastName;
     }
 
-    public void setLastName(String lastName) throws NameUndefinedException {
-        if (lastName == null || lastName.length() < 2) {
-            throw new NameUndefinedException();
-        }
+    void setLastName(String lastName) {
+        validateLastName(lastName);
         this.lastName = lastName;
     }
 
@@ -60,10 +56,8 @@ class Person {
         return age;
     }
 
-    public void setAge(int age) throws IncorrectAgeException {
-        if (age < 1) {
-            throw new IncorrectAgeException();
-        }
+    void setAge(int age) {
+        validateAge(age);
         this.age = age;
     }
 
