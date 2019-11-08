@@ -3,7 +3,6 @@ package task03.model;
 import task03.exceptions.NoMemoryException;
 import task03.exceptions.TooHighMemoryTemperatureException;
 import task03.exceptions.TooLowMemoryFrequencyException;
-import task03.logic.FrequencyChangeable;
 
 public class RamMemory extends ComputerPart implements FrequencyChangeable {
     private int memoryAmount;
@@ -15,34 +14,19 @@ public class RamMemory extends ComputerPart implements FrequencyChangeable {
 
     public RamMemory(String modelName, String producer, String serialNumber, int memoryAmount, double frequency, double temperature) {
         super(modelName, producer, serialNumber);
-
-        if (temperature > MAX_MEMORY_SECURE_TEMP) {
-            throw new TooHighMemoryTemperatureException();
-        }
-        if (frequency <= 0) {
-            throw new TooLowMemoryFrequencyException();
-        }
-        if (memoryAmount < MIN_MEMORY_AMOUNT) {
-            throw new NoMemoryException();
-        }
-
-        this.memoryAmount = memoryAmount;
-        this.frequency = frequency;
-        this.temperature = temperature;
+        setTemperature(temperature);
+        setFrequency(frequency);
+        setMemoryAmount(memoryAmount);
     }
 
     @Override
     public void overclock(double additionalFrequency) {
-        double newTemperature = calculateNewTemperature(additionalFrequency);
+        double newTemperature = temperature + additionalFrequency * TEMP_TO_MEMORY_FREQUENCY_FACTOR;
         if (newTemperature > MAX_MEMORY_SECURE_TEMP) {
             throw new TooHighMemoryTemperatureException();
         }
         setFrequency(frequency + additionalFrequency);
         temperature = newTemperature;
-    }
-
-    private double calculateNewTemperature(double additionalFrequency) {
-        return temperature + additionalFrequency * TEMP_TO_MEMORY_FREQUENCY_FACTOR;
     }
 
     public int getMemoryAmount() {
@@ -60,7 +44,7 @@ public class RamMemory extends ComputerPart implements FrequencyChangeable {
         return frequency;
     }
 
-    public void setFrequency(double frequency) {
+    private void setFrequency(double frequency) {
         if (frequency <= 0) {
             throw new TooLowMemoryFrequencyException();
         }
@@ -76,10 +60,6 @@ public class RamMemory extends ComputerPart implements FrequencyChangeable {
             throw new TooHighMemoryTemperatureException();
         }
         this.temperature = temperature;
-    }
-
-    public static double getMaxMemorySecureTemp() {
-        return MAX_MEMORY_SECURE_TEMP;
     }
 
     @Override

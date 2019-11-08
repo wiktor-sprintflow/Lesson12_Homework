@@ -2,7 +2,6 @@ package task03.model;
 
 import task03.exceptions.TooHighProcessorTemperatureException;
 import task03.exceptions.TooLowProcessorFrequencyException;
-import task03.logic.FrequencyChangeable;
 
 public class Processor extends ComputerPart implements FrequencyChangeable {
     private double frequency;
@@ -13,21 +12,13 @@ public class Processor extends ComputerPart implements FrequencyChangeable {
 
     public Processor(String modelName, String producer, String serialNumber, double frequency, double temperature) {
         super(modelName, producer, serialNumber);
-
-        if (temperature > MAX_PROCESSOR_SECURE_TEMP) {
-            throw new TooHighProcessorTemperatureException();
-        }
-        if (frequency <= 0) {
-            throw new TooLowProcessorFrequencyException();
-        }
-
-        this.frequency = frequency;
-        this.temperature = temperature;
+        setTemperature(temperature);
+        setFrequency(frequency);
     }
 
     @Override
     public void overclock(double additionalFrequency) {
-        double newTemperature = calculateNewTemperature(additionalFrequency);
+        double newTemperature = temperature + additionalFrequency * TEMP_TO_FREQUENCY_FACTOR;
 
         if (newTemperature > MAX_PROCESSOR_SECURE_TEMP) {
             throw new TooHighProcessorTemperatureException();
@@ -36,15 +27,11 @@ public class Processor extends ComputerPart implements FrequencyChangeable {
         temperature = newTemperature;
     }
 
-    private double calculateNewTemperature(double additionalFrequency) {
-        return temperature + additionalFrequency * TEMP_TO_FREQUENCY_FACTOR;
-    }
-
     public double getFrequency() {
         return frequency;
     }
 
-        public void setFrequency(double frequency) {
+    private void setFrequency(double frequency) {
         if (frequency <= 0) {
             throw new TooLowProcessorFrequencyException();
         }
@@ -60,10 +47,6 @@ public class Processor extends ComputerPart implements FrequencyChangeable {
             throw new TooHighProcessorTemperatureException();
         }
         this.temperature = temperature;
-    }
-
-    public static double getMaxProcessorSecureTemp() {
-        return MAX_PROCESSOR_SECURE_TEMP;
     }
 
     @Override
