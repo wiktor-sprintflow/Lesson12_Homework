@@ -7,21 +7,16 @@ public class App {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
 
-        String firstName;
-        String lastName;
-        int age;
-        String pesel;
-
         try {
             System.out.println("Podaj imię:");
-            firstName = in.nextLine();
+            String firstName = in.nextLine();
             System.out.println("Podaj nazwisko:");
-            lastName = in.nextLine();
+            String lastName = in.nextLine();
             System.out.println("Podaj wiek:");
-            age = in.nextInt();
+            int age = in.nextInt();
             in.nextLine();
             System.out.println("Podaj pesel:");
-            pesel = in.nextLine();
+            String pesel = in.nextLine();
             Person person = new Person(firstName, lastName, age, pesel);
             System.out.println(person);
         } catch (IncorrectFirstNameException | IncorrectLastNameException | IncorrectAgeException ex) {

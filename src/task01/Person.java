@@ -7,12 +7,9 @@ class Person {
     private String pesel;
 
     Person(String firstName, String lastName, int age, String pesel) throws IncorrectFirstNameException, IncorrectLastNameException, IncorrectAgeException {
-        validateFirstName(firstName);
-        validateLastName(lastName);
-        validateAge(age);
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
+        setFirstName(firstName);
+        setLastName(lastName);
+        setAge(age);
         this.pesel = pesel;
     }
 

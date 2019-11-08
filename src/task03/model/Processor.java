@@ -44,7 +44,7 @@ public class Processor extends ComputerPart implements FrequencyChangeable {
         return frequency;
     }
 
-    public void setFrequency(double frequency) {
+        public void setFrequency(double frequency) {
         if (frequency <= 0) {
             throw new TooLowProcessorFrequencyException();
         }
